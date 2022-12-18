@@ -37,3 +37,4 @@ lerna-debug.log*
 # Auth
 credentials.json
 token.json
+.env

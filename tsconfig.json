@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "lib": ["es6", "DOM"],
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,
@@ -12,8 +13,9 @@
     "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
-    "strictNullChecks": false,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,

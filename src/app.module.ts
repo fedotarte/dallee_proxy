@@ -1,15 +1,18 @@
-import { Module, CacheModule, CacheStore } from '@nestjs/common';
+import { Module, CacheModule } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DictionaryModule } from './dictionary/dictionary.module';
-import { ImageGenModule } from './image_gen/image_gen.module';
+import { ImageModule } from './image/image.module';
 import { MailSenderModule } from './mail_sender/mail_sender.module';
 import * as redisStore from 'cache-manager-redis-store';
 import type { RedisClientOptions } from 'redis';
+import { OpenaiModule } from './openai/openai.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     CacheModule.register<RedisClientOptions>({
       isGlobal: true,
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -19,8 +22,9 @@ import type { RedisClientOptions } from 'redis';
     }),
     ScheduleModule.forRoot(),
     DictionaryModule,
-    ImageGenModule,
+    ImageModule,
     MailSenderModule,
+    OpenaiModule,
   ],
   controllers: [AppController],
   providers: [AppService],
