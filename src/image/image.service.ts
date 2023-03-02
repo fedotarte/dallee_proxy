@@ -28,13 +28,20 @@ export class ImageService {
           size: CreateImageRequestSizeEnum._256x256,
         });
       this.imageServiceLogger.log('waiting for generatedImageResponse');
-      if (generatedImageResponse.status === HttpStatus.CREATED) {
+      if (
+        [HttpStatus.CREATED, HttpStatus.OK].includes(
+          generatedImageResponse.status,
+        )
+      ) {
         this.imageServiceLogger.log({
           generatedImageResponseData: generatedImageResponse.data,
         });
         return generatedImageResponse.data;
+      } else {
+        this.imageServiceLogger.error({
+          imageStatus: generatedImageResponse.status,
+        });
       }
-      return { url: 'gfy' };
     } catch (createImageError) {
       this.imageServiceLogger.error({
         createImageError,
